@@ -40,16 +40,17 @@ function get_years() {
 var leftMargin = 100;
 var topMargin = 50;
 
+var plotHeight = 400;
+var plotWidth = 400;
+
 function setup() {
     createCanvas(1000,1000);
 
     var years = get_years();
     console.log('Years', years);
-    console.log('Min year', min_from_array(years));
-    console.log('Max year', max_from_array(years));
+    var minYear = min_from_array(years);
+    var maxYear = max_from_array(years);
 
-    var plotHeight = 400;
-    var plotWidth = 400;
 
     // X axis
     line(leftMargin, topMargin + plotHeight, leftMargin + plotWidth, topMargin + plotHeight);
@@ -60,8 +61,6 @@ function setup() {
     text('Year', leftMargin + plotWidth, topMargin + plotHeight + 30);
     
     // X axis ticks
-    var minYear = min_from_array(years);
-    var maxYear = max_from_array(years);
 
     // note that plot begins at minYear - 1, and ends at maxYear + 1, thus: +2
     var pixelsPerYear = plotWidth / (maxYear - minYear + 2);
