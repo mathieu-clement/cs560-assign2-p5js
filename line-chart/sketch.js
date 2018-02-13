@@ -130,8 +130,9 @@ function setup() {
     minHp = round_10_below(minHp);
     maxHp = round_10_above(maxHp);
 
+
+
     var pixelsPerHp = (plotHeight - surplus * 2) / (maxHp - minHp);
-    console.log('pixelsPerHp', pixelsPerHp);
 
     // Draw values
     var xes = []; // x coordinates for each year
