@@ -75,6 +75,7 @@ function draw() {
     line(leftMargin + plotWidth - 10, topMargin + plotHeight - 10, leftMargin + plotWidth, topMargin + plotHeight);
     line(leftMargin + plotWidth - 10, topMargin + plotHeight + 10, leftMargin + plotWidth, topMargin + plotHeight);
     // X axislabel
+    textAlign(LEFT);
     text('Year', leftMargin + plotWidth, topMargin + plotHeight + 30);
     
     // X axis ticks
