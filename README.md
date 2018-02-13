@@ -1,1 +1,1 @@
-# cs560-assign2-p5js
+# CS560 - Assighment 2 - Data Visualization with P5
