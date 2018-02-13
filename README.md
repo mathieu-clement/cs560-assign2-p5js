@@ -1,1 +1,1 @@
-# CS560 - Assighment 2 - Data Visualization with P5
+# CS560 - Assignment 2 - Data Visualization with P5
