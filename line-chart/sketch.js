@@ -1,4 +1,8 @@
-var table;
+var table; // data loaded from csv
+var years; // the unique years in the data, int, sorted
+var hpAverages = {}; // average of horsepower for each year
+var xes = []; // x coordinates for each year
+var yes = []; // y coordinates for each year
 
 function preload() {
     table = loadTable('../cars.csv', 'csv', 'header');
@@ -54,8 +58,13 @@ var plotWidth = 400;
 function setup() {
     createCanvas(plotWidth + leftMargin*2,plotHeight + topMargin*2);
 
-    var years = get_years();
+    years = get_years();
     console.log('Years', years);
+}
+
+function draw() {
+    background(255);
+
     var minYear = min_from_array(years);
     var maxYear = max_from_array(years);
 
@@ -106,7 +115,6 @@ function setup() {
     var minHp = 1000000;
     var maxHp = 0;
 
-    var hpAverages = {};
     for (var i = 0 ; i < years.length ; i++) {
         var year = years[i];
         var total = 0;
@@ -158,8 +166,6 @@ function setup() {
     }
 
     // Calculate line points
-    var xes = []; // x coordinates for each year
-    var yes = []; // y coordinates for each year
     for (var i = 0 ; i < years.length ; i++) {
         var year = years[i];
         var hpAboveMin = hpAverages[year] - minHp;
@@ -181,8 +187,20 @@ function setup() {
         textAlign(RIGHT);
         text('' + Math.round(hpAverages[years[i]]*100)/100, xes[i] - 10, yes[i]);
     }
-   
-}
 
-function draw() {
+    var mouseMargin = 10;
+    for (var i = 0 ; i < years.length ; i++) {
+        var x = xes[i];
+        var y = yes[i];
+        if (mouseX > x - mouseMargin && mouseX < x + mouseMargin &&
+            mouseY > y - mouseMargin && mouseY < y + mouseMargin) {
+            
+            rect (x - 30, y - 40, 50, 30);
+            textAlign(CENTER);
+            text('' + Math.round(hpAverages[years[i]]*100)/100, x, y - 20);
+            strokeWeight(7);
+            point(x, y);
+            strokeWeight(1);
+        }
+    }
 }
