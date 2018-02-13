@@ -52,7 +52,7 @@ var plotHeight = 350;
 var plotWidth = 400;
 
 function setup() {
-    createCanvas(1000,600);
+    createCanvas(plotWidth + leftMargin*2,plotHeight + topMargin*2);
 
     var years = get_years();
     console.log('Years', years);
