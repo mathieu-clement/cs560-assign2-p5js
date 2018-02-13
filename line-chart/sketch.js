@@ -130,27 +130,58 @@ function setup() {
     minHp = round_10_below(minHp);
     maxHp = round_10_above(maxHp);
 
-
-
     var pixelsPerHp = (plotHeight - surplus * 2) / (maxHp - minHp);
 
-    // Draw values
+    // ticks
+    // bottom tick
+    textAlign(RIGHT);
+    var minHpY = topMargin + plotHeight - surplus;
+    text(minHp, leftMargin - 10, minHpY+5); // + 5 to center text vertically
+    line(leftMargin - 5, minHpY, leftMargin + 5, minHpY);
+
+    // top tick
+    var maxHpY = topMargin + surplus;
+    text(maxHp, leftMargin - 10, maxHpY+5);
+    line(leftMargin -5, maxHpY, leftMargin + 5, maxHpY);
+
+    // ticks in between
+    // => we'll put this many ticks:
+    var numVertTicks = 5;
+    // so each tick represents this much horsepower:
+    var hpDelta = (maxHp - minHp) / numVertTicks;
+
+    for (var i = 0 ; i < numVertTicks ; i++) {
+        var x = leftMargin;
+        var y = minHpY - (i+1) * hpDelta * pixelsPerHp;
+        text(minHp + (i+1) * hpDelta, x - 10, y+5);
+        line(x-5, y, x+5, y);
+    }
+
+    // Calculate line points
     var xes = []; // x coordinates for each year
     var yes = []; // y coordinates for each year
     for (var i = 0 ; i < years.length ; i++) {
         var year = years[i];
         var hpAboveMin = hpAverages[year] - minHp;
         var x = leftMargin + pixelsPerYear * (1+i);
-        var y = topMargin + plotHeight - surplus - pixelsPerHp * hpAboveMin;
+        var y = minHpY - pixelsPerHp * hpAboveMin;
         xes[i] = x;
         yes[i] = y;
     }
     console.log(xes);
     console.log(yes);
 
+    // Draw lines
     for (var i = 1; i < years.length ; i++) {
         line(xes[i-1], yes[i-1], xes[i], yes[i]);
     }
+
+    // Label points
+    for (var i = 0 ; i < years.length ; i++) {
+        textAlign(RIGHT);
+        text('' + Math.round(hpAverages[years[i]]*100)/100, xes[i] - 10, yes[i]);
+    }
+   
 }
 
 function draw() {
