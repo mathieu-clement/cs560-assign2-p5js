@@ -183,12 +183,6 @@ function draw() {
         line(xes[i-1], yes[i-1], xes[i], yes[i]);
     }
 
-    // Label points
-    for (var i = 0 ; i < years.length ; i++) {
-        textAlign(RIGHT);
-        text('' + Math.round(hpAverages[years[i]]*100)/100, xes[i] - 10, yes[i]);
-    }
-
     var mouseMargin = 10;
     for (var i = 0 ; i < years.length ; i++) {
         var x = xes[i];
@@ -196,9 +190,9 @@ function draw() {
         if (mouseX > x - mouseMargin && mouseX < x + mouseMargin &&
             mouseY > y - mouseMargin && mouseY < y + mouseMargin) {
             
-            rect (x - 30, y - 40, 50, 30);
+            rect (x + 20, y - 10, 50, 30);
             textAlign(CENTER);
-            text('' + Math.round(hpAverages[years[i]]*100)/100, x, y - 20);
+            text('' + Math.round(hpAverages[years[i]]*100)/100, x + 45, y + 10);
             strokeWeight(7);
             point(x, y);
             strokeWeight(1);
