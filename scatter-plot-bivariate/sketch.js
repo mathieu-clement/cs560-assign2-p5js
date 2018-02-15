@@ -157,7 +157,7 @@ function draw() {
         line(x - 5, y, x + 5, y);
         // label
         textAlign(RIGHT);
-        text(minMpg + tickDelta * i, x - 10, y + 5); 
+        text(minMpg + yTickDelta * i, x - 10, y + 5); 
     }
     
     var mouseMargin = 2;
@@ -182,7 +182,7 @@ function draw() {
             textStyle(BOLD);
             text(car.getString('ID'), leftMargin + plotWidth/2, topMargin - 5);
             textStyle(NORMAL);
-            text(car.get('Highway mpg') + ' MPG', leftMargin + plotWidth/2, topMargin + 10);
+            text(car.get('Highway mpg') + ' mpg', leftMargin + plotWidth/2, topMargin + 10);
             text(car.get('Horsepower') + ' bhp', leftMargin + plotWidth/2, topMargin + 20);
             ellipse(x, y, 8);
             oneElementHighlighted = true;
