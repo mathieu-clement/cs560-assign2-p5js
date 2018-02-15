@@ -76,9 +76,9 @@ function round_10_above(n) {
 }
 
 var leftMargin = 100;
-var topMargin = 50;
+var topMargin = 100;
 
-var plotHeight = 350;
+var plotHeight = 450;
 var plotWidth = 800;
 
 function setup() {
@@ -180,10 +180,10 @@ function draw() {
             textAlign(CENTER);
             fill('rgba(100%,0%,100%,0.5)');
             textStyle(BOLD);
-            text(car.getString('ID'), leftMargin + plotWidth/2, topMargin - 5);
+            text(car.getString('ID'), leftMargin + plotWidth/2, topMargin - 50);
             textStyle(NORMAL);
-            text(car.get('Highway mpg') + ' mpg', leftMargin + plotWidth/2, topMargin + 10);
-            text(car.get('Horsepower') + ' bhp', leftMargin + plotWidth/2, topMargin + 20);
+            text(car.get('Highway mpg') + ' mpg', leftMargin + plotWidth/2, topMargin - 30);
+            text(car.get('Horsepower') + ' bhp', leftMargin + plotWidth/2, topMargin - 10);
             ellipse(x, y, 8);
             oneElementHighlighted = true;
         }
