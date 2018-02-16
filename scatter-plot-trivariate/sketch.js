@@ -160,7 +160,26 @@ function draw() {
         textAlign(RIGHT);
         text(minMpg + yTickDelta * i, x - 10, y + 5); 
     }
-    
+
+    // Legend
+    textAlign(RIGHT);
+    textStyle(BOLD);
+    text('Legend', leftMargin, 12);
+    textAlign(LEFT);
+    noStroke();
+
+    fill(255, 165, 0);
+    triangle(leftMargin-6, 30, leftMargin, 22, leftMargin+6, 30);
+    text('Diesel', leftMargin+12, 30);
+
+    fill(0, 128, 0);
+    rect(leftMargin-5, 40, 10, 10);
+    text('E85', leftMargin+12, 49);
+
+    fill(200);
+    ellipse(leftMargin, 65, 10);
+    text('Gasoline', leftMargin+12, 69);
+
     var mouseMargin = 2;
     var oneElementHighlighted = false;
 
@@ -168,26 +187,39 @@ function draw() {
         var car = cars[i];
         var hp = car.getNum('Horsepower');
         var mpg = car.getNum(mpgVar);
+        var fuelType = car.get('Fuel Type');
 
         var x = leftMargin + surplus + pixelsPerHp * (hp - minHp);
         var y = topMargin + plotHeight - surplus - pixelsPerMpg * (mpg - minMpg);
-        fill(200);
-        ellipse(x, y, 3);
+        noStroke();
+        if (fuelType == 'Diesel fuel') {
+            fill(255, 165, 0); // orange
+            triangle(x-4, y, x, y-4, x+4, y);
+        } else if (fuelType == 'E85') {
+            fill(0, 128, 0); // green
+            rect(x-2, y-2, 4, 4);
+        } else {
+            fill(200); // grey
+            ellipse(x, y, 4);
+        }
+        stroke(51);
 
         if (!oneElementHighlighted &&
             mouseX > x - mouseMargin && mouseX < x + mouseMargin &&
             mouseY > y - mouseMargin && mouseY < y + mouseMargin) {
         
             textAlign(CENTER);
-            fill('rgba(100%,0%,100%,0.5)');
+            fill('rgba(100%,0%,100%,1.0)');
             textStyle(BOLD);
-            text(car.getString('ID'), leftMargin + plotWidth/2, topMargin - 50);
+            text(car.getString('ID'), leftMargin + plotWidth/2, topMargin - 70);
             textStyle(NORMAL);
-            text(car.get(mpgVar) + ' mpg', leftMargin + plotWidth/2, topMargin - 30);
-            text(car.get('Horsepower') + ' bhp', leftMargin + plotWidth/2, topMargin - 10);
+            text(car.get(mpgVar) + ' mpg', leftMargin + plotWidth/2, topMargin - 50);
+            text(car.get('Horsepower') + ' bhp', leftMargin + plotWidth/2, topMargin - 30);
+            text(fuelType, leftMargin + plotWidth/2, topMargin - 10);
             ellipse(x, y, 8);
             oneElementHighlighted = true;
         }
         fill(0);
+        textStyle(NORMAL);
     }
 }
