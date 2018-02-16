@@ -147,22 +147,31 @@ function draw() {
     }
 
     // Draw bars
-    fill(0);
-    var fwdHeight = pixelsPerMpg * mpgAverages['Front-wheel drive'];
-    var fwdX = leftMargin + 50;
-    rect(fwdX, topMargin + plotHeight - fwdHeight, barWidth, fwdHeight);
+    
     textAlign(LEFT);
-    text('FWD', fwdX - 5, topMargin + plotHeight + 20);
 
+    fill(0, 80, 0);
     var rwdHeight = pixelsPerMpg * mpgAverages['Rear-wheel drive'];
-    var rwdX = leftMargin + 100;
+    var rwdX = leftMargin + 50;
     rect(rwdX, topMargin + plotHeight - rwdHeight, barWidth, rwdHeight);
+    fill(0);
     text('RWD', rwdX - 5, topMargin + plotHeight + 20);
 
+    fill(0, 128, 0);
     var awdHeight = pixelsPerMpg * mpgAverages['All-wheel drive'];
-    var awdX = leftMargin + 150;
+    var awdX = leftMargin + 100;
     rect(awdX, topMargin + plotHeight - awdHeight, barWidth, awdHeight);
+    fill(0);
     text('AWD', awdX - 5, topMargin + plotHeight + 20);
+    
+    fill(0x29, 0xc4, 0x63);
+    var fwdHeight = pixelsPerMpg * mpgAverages['Front-wheel drive'];
+    var fwdX = leftMargin + 150;
+    rect(fwdX, topMargin + plotHeight - fwdHeight, barWidth, fwdHeight);
+    fill(0);
+    text('FWD', fwdX - 5, topMargin + plotHeight + 20);
+
+    fill(0);
 
     if (mouseX >= fwdX && 
         mouseX <= fwdX + barWidth &&
