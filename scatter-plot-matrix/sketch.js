@@ -84,12 +84,12 @@ var leftMargin2 = leftMargin1 + plotWidth;
 var leftMargin3 = leftMargin2 + plotWidth;
 var leftMargins = [leftMargin1, leftMargin2, leftMargin3];
 
-var topMargin1 = 100;
+var topMargin1 = 50;
 var topMargin2 = topMargin1 + plotHeight;
 var topMargin3 = topMargin2 + plotHeight;
 
 function setup() {
-    createCanvas(plotWidth*3+300,plotHeight*3+300);
+    createCanvas(leftMargin1 + plotWidth*3+50,topMargin1 + plotHeight*3+50);
 
     cars = table.getRows();
     cars = remove_outliers(cars);
@@ -110,13 +110,13 @@ function setup() {
     minMpg = min_from_array(mpgs);
     maxMpg = max_from_array(mpgs);
 
-    frameRate(1);
+    frameRate(20);
 }
 
 var mouseMargin = 5;
 var oneElementHighlighted = false;
 
-function highlight(car, x, y, leftMargin, topMargin) {
+function highlight(car, x, y, leftMargin, topMargin, xVal, yVal) {
         if (!oneElementHighlighted &&
             mouseX > x - mouseMargin && mouseX < x + mouseMargin &&
             mouseY > y - mouseMargin && mouseY < y + mouseMargin) {
@@ -125,6 +125,10 @@ function highlight(car, x, y, leftMargin, topMargin) {
             fill('rgba(100%,0%,100%,0.5)');
             textStyle(BOLD);
             text(car.getString('ID'), leftMargin + plotWidth/2, topMargin + 20);
+            textAlign(LEFT);
+            text(int(xVal), x+10, y+4);
+            textAlign(RIGHT);
+            text(int(yVal), x-6, y-5);
             textStyle(NORMAL);
             ellipse(x, y, 8);
             oneElementHighlighted = true;
@@ -258,38 +262,36 @@ function draw() {
         var y1, y2, y3;
         y1 = y2 = y3 = topMargin3 + plotHeight - surplus - pixelsPerMpgY * (mpg - minMpg);
         ellipse(x1, y1, 1);
-        highlight(car, x1, y1, leftMargin1, topMargin3);
+        highlight(car, x1, y1, leftMargin1, topMargin3, fwdGr, mpg);
         
         // MPG on Horsepower
         var x2 = leftMargin2 + surplus + pixelsPerHpX * (hp - minHp);
         ellipse(x2, y2, 1);
-        highlight(car, x2, y2, leftMargin2, topMargin3);
+        highlight(car, x2, y2, leftMargin2, topMargin3, hp, mpg);
         
         // MPG on Torque
         var x3 = leftMargin3 + surplus + pixelsPerTorqueUnitX * (torque - minTorque);
         ellipse(x3, y3, 1);
-        highlight(car, x3, y3, leftMargin3, topMargin3);
+        highlight(car, x3, y3, leftMargin3, topMargin3, torque, mpg);
         
         // Torque on Forward gears
         var x4 = x1;
         var y4 = topMargin2 + plotHeight - surplus - pixelsPerTorqueUnitY * (torque - minTorque);
         ellipse(x4, y4, 1);
-        highlight(car, x4, y4, leftMargin1, topMargin2);
+        highlight(car, x4, y4, leftMargin1, topMargin2, fwdGr, torque);
         
         // Torque on Horsepower
         var x5 = x2;
         var y5 = y4;
         ellipse(x5, y5, 1);
-        highlight(car, x5, y5, leftMargin2, topMargin2);
+        highlight(car, x5, y5, leftMargin2, topMargin2, hp, torque);
         
         // Horsepower on Forward gears
         var x6 = x1;
         var y6 = topMargin1 + plotHeight - surplus - pixelsPerHpY * (hp - minHp);
         ellipse(x6, y6, 1);
-        highlight(car, x6, y6, leftMargin1, topMargin1);
+        highlight(car, x6, y6, leftMargin1, topMargin1, fwdGr, hp);
 
         fill(0);
-
-        // TODO Move interactivity to "dead zone" and add pertinent information
     }
 }
