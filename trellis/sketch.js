@@ -108,9 +108,9 @@ function draw() {
     // Name of each subgraph
     textAlign(CENTER);
     textStyle(BOLD);
-    text('Gasoline', leftMargin1 + plotWidth/2, topMargin+10);
-    text('Diesel', leftMargin2 + plotWidth/2, topMargin+10);
-    text('E85', leftMargin3 + plotWidth/2, topMargin+10);
+    text('Gasoline', leftMargin1 + plotWidth/2, topMargin-12);
+    text('Diesel', leftMargin2 + plotWidth/2, topMargin-12);
+    text('E85', leftMargin3 + plotWidth/2, topMargin-12);
  
     textAlign(LEFT);
     textStyle(NORMAL);
@@ -133,12 +133,10 @@ function draw() {
         var leftMargin = leftMargins[l];
         // X axis
         line(leftMargin, topMargin + plotHeight, leftMargin + plotWidth, topMargin + plotHeight);
-        // X axis arrow on the right
-        line(leftMargin + plotWidth - 10, topMargin + plotHeight - 10, leftMargin + plotWidth, topMargin + plotHeight);
-        line(leftMargin + plotWidth - 10, topMargin + plotHeight + 10, leftMargin + plotWidth, topMargin + plotHeight);
+        line(leftMargin, topMargin, leftMargin + plotWidth, topMargin);
         // X axis label
-        textAlign(RIGHT);
-        text('Horsepower', leftMargin + plotWidth, topMargin + plotHeight + 30);
+        textAlign(CENTER);
+        text('Horsepower', leftMargin + plotWidth/2, topMargin + plotHeight + 40);
 
         // start drawing ticks
         var pixelsPerHp = (plotWidth - surplus * 2) / (maxHp - minHp);
@@ -158,9 +156,7 @@ function draw() {
 
         // Y axis
         line(leftMargin, topMargin + plotHeight, leftMargin, topMargin);
-        // Y axis arrow at the top
-        line(leftMargin - 10, topMargin + 10, leftMargin, topMargin);
-        line(leftMargin + 10, topMargin + 10, leftMargin, topMargin);
+        line(leftMargin + plotWidth, topMargin + plotHeight, leftMargin + plotWidth, topMargin);
         // Y axis ticks
         minMpg = round_10_below(minMpg);
         maxMpg = round_10_above(maxMpg);
@@ -213,10 +209,10 @@ function draw() {
             textAlign(CENTER);
             fill('rgba(100%,0%,100%,0.5)');
             textStyle(BOLD);
-            text(car.getString('ID'), leftMargin + plotWidth/2, topMargin - 70);
+            text(car.getString('ID'), leftMargin + plotWidth/2, topMargin + 20);
             textStyle(NORMAL);
-            text(car.get(mpgVar) + ' mpg', leftMargin + plotWidth/2, topMargin - 50);
-            text(car.get('Horsepower') + ' bhp', leftMargin + plotWidth/2, topMargin - 30);
+            text(car.get(mpgVar) + ' mpg', leftMargin + plotWidth/2, topMargin + 40);
+            text(car.get('Horsepower') + ' bhp', leftMargin + plotWidth/2, topMargin + 60);
             ellipse(x, y, 8);
             oneElementHighlighted = true;
         }
