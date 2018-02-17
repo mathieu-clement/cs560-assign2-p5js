@@ -6,3 +6,4 @@
 4. [Scatter plot - trivariate](https://bl.ocks.org/tiktaktok/raw/7b8489bcb81bb57da6bbdb5b39df6203)
 5. [Trellis plot](https://bl.ocks.org/tiktaktok/raw/c582ddc85aece60cef5f743f1ab38230)
 6. [Scatter plot Matrix (SPLOM)](https://bl.ocks.org/tiktaktok/raw/f2e67edd5f3cf7ae75773db35e094146)
+7. [Parallel coordinates](https://bl.ocks.org/tiktaktok/raw/53db8ca018526c0d2ffae224a1da8405)
