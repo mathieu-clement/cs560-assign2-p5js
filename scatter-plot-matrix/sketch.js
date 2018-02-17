@@ -142,10 +142,12 @@ function draw() {
     minHp = round_10_below(minHp);
     maxHp = round_10_above(maxHp);
 
-    // Y axis label is drawn only once
+    // Y axis label is drawn only once per "line" of subgraphs
     angleMode(DEGREES);
     rotate(-90);
     textAlign(CENTER);
+    text('Horsepower', 0 - (topMargin1 + plotHeight/2), leftMargin1 - 50);
+    text('Torque', 0 - (topMargin2 + plotHeight/2), leftMargin1 - 50);
     text(mpgVar, 0 - (topMargin3 + plotHeight/2), leftMargin1 - 50);
     rotate(90);
 
@@ -154,17 +156,39 @@ function draw() {
     maxMpg = round_10_above(maxMpg);
 
     // start drawing ticks
-    var pixelsPerMpg = (plotHeight - surplus * 2) / (maxMpg - minMpg);
     var nbTicksY = 4;
-    var yTickDelta = (maxMpg - minMpg) / nbTicksY;
+    var pixelsPerHpY = (plotHeight - surplus * 2) / (maxHp - minHp);
+    var hpTickDeltaY = (maxHp - minHp) / nbTicksY;
     for (var i = 0 ; i <= nbTicksY ; i++) {
-        var y = topMargin3 + plotHeight - surplus - yTickDelta * pixelsPerMpg * i;
+        var y = topMargin1 + plotHeight - surplus - hpTickDeltaY * pixelsPerHpY * i;
         var x = leftMargin1; // x is ON the axis
         // tick
         line(x - 5, y, x + 5, y);
         // label
         textAlign(RIGHT);
-        text(minMpg + yTickDelta * i, x - 10, y + 5); 
+        text(minHp + hpTickDeltaY * i, x - 10, y + 5); 
+    }
+    var pixelsPerTorqueUnitY = (plotHeight - surplus * 2) / (maxTorque - minTorque);
+    var torqueTickDeltaY = (maxTorque - minTorque) / nbTicksY;
+    for (var i = 0 ; i <= nbTicksY ; i++) {
+        var y = topMargin2 + plotHeight - surplus - torqueTickDeltaY * pixelsPerTorqueUnitY * i;
+        var x = leftMargin1; // x is ON the axis
+        // tick
+        line(x - 5, y, x + 5, y);
+        // label
+        textAlign(RIGHT);
+        text(minTorque + torqueTickDeltaY * i, x - 10, y + 5); 
+    }
+    var pixelsPerMpgY = (plotHeight - surplus * 2) / (maxMpg - minMpg);
+    var mpgTickDeltaY = (maxMpg - minMpg) / nbTicksY;
+    for (var i = 0 ; i <= nbTicksY ; i++) {
+        var y = topMargin3 + plotHeight - surplus - mpgTickDeltaY * pixelsPerMpgY * i;
+        var x = leftMargin1; // x is ON the axis
+        // tick
+        line(x - 5, y, x + 5, y);
+        // label
+        textAlign(RIGHT);
+        text(minMpg + mpgTickDeltaY * i, x - 10, y + 5); 
     }
         
     // X axis labels
@@ -175,10 +199,10 @@ function draw() {
     
     // start drawing ticks
     var nbTicksX = 4;
-    var pixelsPerForwardGear = (plotWidth - surplus * 2) / (maxForwardGear - minForwardGear);
+    var pixelsPerForwardGearX = (plotWidth - surplus * 2) / (maxForwardGear - minForwardGear);
     var tickDeltaForwardGear = (maxForwardGear - minForwardGear) / nbTicksX;
     for (var i = 0 ; i <= nbTicksX ; i++) {
-        var x = leftMargin1 + surplus + tickDeltaForwardGear * pixelsPerForwardGear * i;
+        var x = leftMargin1 + surplus + tickDeltaForwardGear * pixelsPerForwardGearX * i;
         var y = topMargin3 + plotHeight; // y is ON the axis
         // tick
         line(x, y - 5, x, y + 5);
@@ -186,10 +210,10 @@ function draw() {
         textAlign(CENTER);
         text(minForwardGear + tickDeltaForwardGear * i, x, y + 20); 
     }
-    var pixelsPerHp = (plotWidth - surplus * 2) / (maxHp - minHp);
+    var pixelsPerHpX = (plotWidth - surplus * 2) / (maxHp - minHp);
     var tickDeltaHp = (maxHp - minHp) / nbTicksX;
     for (var i = 0 ; i <= nbTicksX ; i++) {
-        var x = leftMargin2 + surplus + tickDeltaHp * pixelsPerHp * i;
+        var x = leftMargin2 + surplus + tickDeltaHp * pixelsPerHpX * i;
         var y = topMargin3 + plotHeight; // y is ON the axis
         // tick
         line(x, y - 5, x, y + 5);
@@ -197,10 +221,10 @@ function draw() {
         textAlign(CENTER);
         text(minHp + tickDeltaHp * i, x, y + 20); 
     }
-    var pixelsPerTorqueUnit = (plotWidth - surplus * 2) / (maxTorque - minTorque);
+    var pixelsPerTorqueUnitX = (plotWidth - surplus * 2) / (maxTorque - minTorque);
     var tickDeltaTorque = (maxTorque - minTorque) / nbTicksX;
     for (var i = 0 ; i <= nbTicksX ; i++) {
-        var x = leftMargin3 + surplus + tickDeltaTorque * pixelsPerTorqueUnit * i;
+        var x = leftMargin3 + surplus + tickDeltaTorque * pixelsPerTorqueUnitX * i;
         var y = topMargin3 + plotHeight; // y is ON the axis
         // tick
         line(x, y - 5, x, y + 5);
@@ -209,19 +233,16 @@ function draw() {
         text(minHp + tickDeltaTorque * i, x, y + 20); 
     }
 
-
-    for (var l = 0 ; l < leftMargins.length; l++) {
-        var leftMargin = leftMargins[l];
-        // X axis
-        line(leftMargin, topMargin3 + plotHeight, leftMargin + plotWidth, topMargin3 + plotHeight);
-        line(leftMargin, topMargin3, leftMargin + plotWidth, topMargin3);
-
-        // ----------------------------------------------
-
-        // Y axis
-        line(leftMargin, topMargin3 + plotHeight, leftMargin, topMargin3);
-        line(leftMargin + plotWidth, topMargin3 + plotHeight, leftMargin + plotWidth, topMargin3);
-    }
+    // Horizontal lines
+    line(leftMargin1, topMargin1, leftMargin1 + plotWidth, topMargin1);
+    line(leftMargin1, topMargin1 + plotHeight, leftMargin2 + plotWidth, topMargin1 + plotHeight);
+    line(leftMargin1, topMargin3, leftMargin3 + plotWidth, topMargin3);
+    line(leftMargin1, topMargin3 + plotHeight, leftMargin3 + plotWidth, topMargin3 + plotHeight);
+    // Vertical lines
+    line(leftMargin1, topMargin1, leftMargin1, topMargin3 + plotHeight);
+    line(leftMargin2, topMargin1, leftMargin2, topMargin3 + plotHeight);
+    line(leftMargin3, topMargin2, leftMargin3, topMargin3 + plotHeight);
+    line(leftMargin3 + plotWidth, topMargin3, leftMargin3 + plotWidth, topMargin3 + plotHeight);
 
     for (var i = 0 ; i < cars.length ; i++) {
         var car = cars[i];
@@ -233,22 +254,42 @@ function draw() {
         fill(200);
 
         // MPG on Forward gears
-        var x1 = leftMargin1 + surplus + pixelsPerForwardGear * (fwdGr - minForwardGear);
+        var x1 = leftMargin1 + surplus + pixelsPerForwardGearX * (fwdGr - minForwardGear);
         var y1, y2, y3;
-        y1 = y2 = y3 = topMargin3 + plotHeight - surplus - pixelsPerMpg * (mpg - minMpg);
+        y1 = y2 = y3 = topMargin3 + plotHeight - surplus - pixelsPerMpgY * (mpg - minMpg);
         ellipse(x1, y1, 1);
         highlight(car, x1, y1, leftMargin1, topMargin3);
         
         // MPG on Horsepower
-        var x2 = leftMargin2 + surplus + pixelsPerHp * (hp - minHp);
+        var x2 = leftMargin2 + surplus + pixelsPerHpX * (hp - minHp);
         ellipse(x2, y2, 1);
         highlight(car, x2, y2, leftMargin2, topMargin3);
         
         // MPG on Torque
-        var x3 = leftMargin3 + surplus + pixelsPerTorqueUnit * (torque - minTorque);
+        var x3 = leftMargin3 + surplus + pixelsPerTorqueUnitX * (torque - minTorque);
         ellipse(x3, y3, 1);
         highlight(car, x3, y3, leftMargin3, topMargin3);
+        
+        // Torque on Forward gears
+        var x4 = x1;
+        var y4 = topMargin2 + plotHeight - surplus - pixelsPerTorqueUnitY * (torque - minTorque);
+        ellipse(x4, y4, 1);
+        highlight(car, x4, y4, leftMargin1, topMargin2);
+        
+        // Torque on Horsepower
+        var x5 = x2;
+        var y5 = y4;
+        ellipse(x5, y5, 1);
+        highlight(car, x5, y5, leftMargin2, topMargin2);
+        
+        // Horsepower on Forward gears
+        var x6 = x1;
+        var y6 = topMargin1 + plotHeight - surplus - pixelsPerHpY * (hp - minHp);
+        ellipse(x6, y6, 1);
+        highlight(car, x6, y6, leftMargin1, topMargin1);
 
         fill(0);
+
+        // TODO Move interactivity to "dead zone" and add pertinent information
     }
 }
